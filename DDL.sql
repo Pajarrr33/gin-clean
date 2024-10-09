@@ -14,6 +14,8 @@ CREATE TABLE users (
     name VARCHAR(255) NOT NULL,
     age INT not NULL,
     gender VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (credential_id) REFERENCES credential(credential_id)
 );
 
