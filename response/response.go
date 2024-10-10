@@ -18,10 +18,10 @@ import "gin-db/model"
 // 	Data model.Todo `json:"data"`
 // }
 
-// type ResponseUserSingle struct{
-// 	Code int    `json:"code"`
-// 	Data model.User `json:"data"`
-// }
+type ResponseUserSingle struct{
+	Code int    `json:"code"`
+	Data model.User `json:"data"`
+}
 
 type ResponseCredentialSingle struct {
 	Code int    `json:"code"`

@@ -9,6 +9,7 @@ import (
 type CredentialRepository interface {
 	Register(credential *model.Credential) (*model.Credential,error)
 	IsEmailExist(email string) (bool, error)
+	GetCredentialByEmail(email string,credential model.Credential) (model.Credential,error)
 }
 
 type credentialRepository struct {
@@ -42,4 +43,15 @@ func (cr *credentialRepository) IsEmailExist(email string) (bool, error) {
 	}
 	
 	return true,nil
+}
+
+func (cr *credentialRepository) GetCredentialByEmail(email string,credential model.Credential) (model.Credential,error) {
+	query := "SELECT credential_id,email,password,created_at,updated_at FROM credential WHERE email = $1"
+
+	err := cr.db.QueryRow(query,email).Scan(&credential.Credential_id,&credential.Email,&credential.Password,&credential.Created_at,&credential.Updated_at)
+	if err != nil {
+		return credential,err
+	}
+	
+	return credential,nil
 }

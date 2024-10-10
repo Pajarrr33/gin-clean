@@ -8,6 +8,7 @@ import (
 type CredentialUsecase interface {
 	Register(credential *model.Credential) (*model.Credential,error)
 	IsEmailExist(email string) (bool,error)
+	GetCredentialByEmail(email string,credential model.Credential) (model.Credential,error)
 }
 
 type credentialUsecase struct {
@@ -19,23 +20,14 @@ func NewCredentialUsecase(repo repository.CredentialRepository) CredentialUsecas
 }
 
 func (cu *credentialUsecase) Register(credential *model.Credential) (*model.Credential,error) {
-	credential,err := cu.repo.Register(credential)
-	if err != nil {
-		return nil,err
-	}
-
-	return credential,nil
+	return cu.repo.Register(credential)
 }
 
 func (cu *credentialUsecase) IsEmailExist(email string) (bool,error) {
-	isEmailExist,err := cu.repo.IsEmailExist(email)
-	if err != nil {
-		return false,err
-	}
-	if !isEmailExist {
-		return false,nil
-	}
+	return cu.repo.IsEmailExist(email)
+}
 
-	return true, nil
+func (cu *credentialUsecase) GetCredentialByEmail(email string,credential model.Credential) (model.Credential,error) {
+	return cu.repo.GetCredentialByEmail(email,credential)
 }
 

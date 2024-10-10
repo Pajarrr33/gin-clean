@@ -20,18 +20,22 @@ func main() {
 	var (
 		// Repository
 		credentialRepository repository.CredentialRepository = repository.NewCredentialRepo(db)
+		UserRepository repository.UserRepository = repository.NewUserRepo(db)
 
 		// Usecase
 		credentialUsecase usecase.CredentialUsecase = usecase.NewCredentialUsecase(credentialRepository)
+		userUsecase usecase.UserUsecase = usecase.NewUserUsecase(UserRepository)
 
 		// Controller
 		credentialController controller.CredentialController = controller.NewCredentialController(credentialUsecase)
+		userController controller.UserController = controller.NewUserController(userUsecase,credentialUsecase)
 	)
 
 	server := gin.Default()
 
 	// Routes
 	routes.Credentials(server, credentialController)
+	routes.Users(server,userController)
 
 	server.Run(":8080")
 }

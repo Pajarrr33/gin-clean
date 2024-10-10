@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"gin-db/model"
 	"gin-db/response"
 	"gin-db/usecase"
@@ -60,7 +59,6 @@ func (cc *credentialController) Register(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Println(isEmailExist)
 	if isEmailExist {
 		response := response.ResponseError{
 			Code:    http.StatusBadRequest,
